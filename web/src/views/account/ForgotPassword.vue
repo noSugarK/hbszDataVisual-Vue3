@@ -5,13 +5,44 @@
       <LogoHeader />
       
       <h2 class="mt-3 fw-bold text-center text-primary animate__animated animate__fadeInUp">忘记密码</h2>
-      <!-- 步骤 1：输入邮箱 -->
+      
+      <!-- 步骤 1：输入用户名 -->
       <div v-if="step === 1" class="animate__animated animate__fadeIn">
         <p class="text-muted mb-4 animate__animated animate__fadeInUp">
-          请输入您注册时使用的邮箱,<br>
-          将发送重置密码链接至您的邮箱。
+          请输入您的用户名进行验证
         </p>
-        <form @submit.prevent="sendResetLink">
+        <form @submit.prevent="checkUsername">
+          <div class="mb-3 animate__animated animate__fadeInLeft">
+            <label for="username" class="form-label">用户名</label>
+            <input
+                id="username"
+                v-model="username"
+                type="text"
+                class="form-control custom-input"
+                placeholder="请输入用户名"
+                required
+            />
+          </div>
+          <button
+              type="submit"
+              :disabled="loading"
+              class="btn custom-btn w-100 mb-3 animate__animated animate__pulse animate__delay-1s"
+          >
+            <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {{ loading ? '验证中...' : '验证用户名' }}
+          </button>
+        </form>
+        <div class="text-center mt-3 animate__animated animate__fadeInUp animate__delay-2s">
+          <a href="#" class="text-decoration-none" @click.prevent="$router.push('/login')">← 返回登录</a>
+        </div>
+      </div>
+
+      <!-- 步骤 2：输入邮箱 -->
+      <div v-if="step === 2" class="animate__animated animate__fadeIn">
+        <p class="text-muted mb-4 animate__animated animate__fadeInUp">
+          请输入您注册时使用的邮箱进行验证
+        </p>
+        <form @submit.prevent="checkEmail">
           <div class="mb-3 animate__animated animate__fadeInLeft">
             <label for="resetEmail" class="form-label">邮箱地址</label>
             <input
@@ -29,16 +60,17 @@
               class="btn custom-btn w-100 mb-3 animate__animated animate__pulse animate__delay-1s"
           >
             <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            {{ loading ? '发送中...' : '发送重置链接' }}
+            {{ loading ? '验证中...' : '验证邮箱并发送重置链接' }}
           </button>
         </form>
         <div class="text-center mt-3 animate__animated animate__fadeInUp animate__delay-2s">
-          <a href="#" class="text-decoration-none" @click.prevent="$router.push('/login')">← 返回登录</a>
+          <a href="#" class="text-decoration-none" @click="step = 1">← 返回上一步</a> |
+          <a href="#" class="text-decoration-none" @click.prevent="$router.push('/login')"> 返回登录</a>
         </div>
       </div>
 
-      <!-- 步骤 2：发送成功 -->
-      <div v-if="step === 2" class="animate__animated animate__fadeIn">
+      <!-- 步骤 3：发送成功 -->
+      <div v-if="step === 3" class="animate__animated animate__fadeIn">
         <div class="text-center mb-4">
           <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
         </div>
@@ -69,9 +101,58 @@ import LogoHeader from "@/components/common/LogoHeader.vue";
 import AccountFooter from "@/components/layout/AccountFooter.vue";
 
 const router = useRouter()
-const step = ref(1) // 1: 输入邮箱, 2: 成功提示
+const step = ref(1) // 1: 输入用户名, 2: 输入邮箱, 3: 成功提示
+const username = ref('')
 const email = ref('')
 const loading = ref(false)
+
+const checkUsername = async () => {
+  if (!username.value) {
+    alert('请输入用户名')
+    return
+  }
+
+  loading.value = true
+  try {
+    const response = await AccountService.checkUsername(username.value)
+    if (response.valid) {
+      step.value = 2
+      // 不再自动填充邮箱，让用户手动输入
+    } else {
+      alert('用户名不存在')
+    }
+  } catch (err) {
+    const msg = err.response?.data?.username || '验证失败，请稍后重试'
+    alert(msg)
+  } finally {
+    loading.value = false
+  }
+}
+
+const checkEmail = async () => {
+  if (!email.value) {
+    alert('请输入邮箱')
+    return
+  }
+
+  loading.value = true
+  try {
+    // 验证邮箱是否与用户名匹配
+    const response = await AccountService.checkEmail(username.value, email.value)
+    if (response.valid) {
+      // 用户名和邮箱都验证通过，发送重置链接
+      await AccountService.forgotPassword(email.value)
+      step.value = 3
+    } else {
+      alert('邮箱与用户名不匹配')
+    }
+  } catch (err) {
+    const msg = err.response?.data?.detail || '验证失败，请稍后重试'
+    alert(msg)
+  } finally {
+    loading.value = false
+  }
+}
 
 const sendResetLink = async () => {
   if (!email.value) {
@@ -82,7 +163,7 @@ const sendResetLink = async () => {
   loading.value = true
   try {
     await AccountService.forgotPassword(email.value)
-    step.value = 2
+    step.value = 3
   } catch (err) {
     const msg = err.response?.data?.email || '发送失败，请稍后重试'
     alert(msg)

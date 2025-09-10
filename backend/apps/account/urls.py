@@ -5,9 +5,12 @@ from apps.account import views
 
 app_name = 'users'
 
+
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('password/reset/check-username/', views.PasswordResetUsernameCheckView.as_view(), name='password_reset_check_username'),
+    path('password/reset/check-email/', views.PasswordResetEmailCheckView.as_view(), name='password_reset_check_email'),
     path('password/reset/', views.PasswordResetView.as_view(), name='password_reset'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -17,6 +17,23 @@ class AccountService {
     return response.data
   }
 
+  // 检查用户名是否存在
+  async checkUsername(username) {
+    const response = await api.post('/account/password/reset/check-username/', {
+      username
+    })
+    return response.data
+  }
+
+  // 检查邮箱是否与用户名匹配
+  async checkEmail(username, email) {
+    const response = await api.post('/account/password/reset/check-email/', {
+      username,
+      email
+    })
+    return response.data
+  }
+
   // 忘记密码 - 发送重置邮件
   async forgotPassword(email) {
     const response = await api.post('/account/password/reset/', {

@@ -81,6 +81,38 @@ class LogoutView(APIView):
             return Response({"detail": "无效令牌"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class PasswordResetUsernameCheckView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    def post(self, request):
+        username = request.data.get('username')
+        if not username:
+            return Response({"username": "用户名是必填项"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = USER.objects.get(username=username, is_active=True)
+            return Response({"valid": True}, status=status.HTTP_200_OK)
+        except USER.DoesNotExist:
+            return Response({"valid": False}, status=status.HTTP_200_OK)
+
+
+class PasswordResetEmailCheckView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    def post(self, request):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        
+        if not username or not email:
+            return Response({"detail": "用户名和邮箱都是必填项"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = USER.objects.get(username=username, email=email, is_active=True)
+            return Response({"valid": True}, status=status.HTTP_200_OK)
+        except USER.DoesNotExist:
+            return Response({"valid": False}, status=status.HTTP_200_OK)
+
+
 class PasswordResetView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -90,11 +122,8 @@ class PasswordResetView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         email = serializer.validated_data['email']
-        try:
-            user = USER.objects.get(email=email, is_active=True)
-        except USER.DoesNotExist:
-            # 为安全考虑，不暴露用户是否存在
-            return Response({"message": "密码重置邮件已发送"}, status=status.HTTP_200_OK)
+        user = USER.objects.get(email=email, is_active=True)
+        return Response({"message": "密码重置邮件已发送"}, status=status.HTTP_200_OK)
 
         # 生成重置链接
         uid = urlsafe_base64_encode(force_bytes(user.pk))
