@@ -108,43 +108,47 @@
                 <!-- 密码 -->
                 <div class="col-12">
                   <label for="password" class="form-label">密码</label>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    id="password" 
-                    placeholder=""
-                    v-model="form.password"
-                    @blur="validatePassword"
-                    :class="{
-                      'is-invalid': passwordError,
-                      'is-valid': form.password && !passwordError
-                    }"
-                    required
-                  >
-                  <div class="form-text">密码长度至少8位，至少包含数字、大小写字母、特殊字符中的任意两种</div>
-                  <div class="invalid-feedback" v-if="passwordError">
-                    {{ passwordError }}
+                  <div class="input-group">
+                    <input 
+                      :type="showPassword ? 'text' : 'password'" 
+                      class="form-control" 
+                      id="password" 
+                      placeholder=""
+                      v-model="form.password"
+                      @blur="validatePassword"
+                      :class="{
+                        'is-invalid': passwordError,
+                        'is-valid': form.password && !passwordError
+                      }"
+                      required
+                    >
+                    <div class="invalid-feedback" v-if="passwordError">
+                      {{ passwordError }}
+                    </div>
                   </div>
+                  <div class="form-text">密码长度至少8位，至少包含数字、大小写字母、特殊字符中的任意两种</div>
                 </div>
 
                 <!-- 确认密码 -->
                 <div class="col-12">
                   <label for="confirmPassword" class="form-label">确认密码</label>
-                  <input 
-                    type="password" 
-                    class="form-control" 
-                    id="confirmPassword" 
-                    placeholder=""
-                    v-model="form.confirm_password"
-                    @blur="validateConfirmPassword"
-                    :class="{
-                      'is-invalid': confirmPasswordError,
-                      'is-valid': form.confirm_password && !confirmPasswordError
-                    }"
-                    required
-                  >
-                  <div class="invalid-feedback" v-if="confirmPasswordError">
-                    {{ confirmPasswordError }}
+                  <div class="input-group">
+                    <input 
+                      :type="showConfirmPassword ? 'text' : 'password'" 
+                      class="form-control" 
+                      id="confirmPassword" 
+                      placeholder=""
+                      v-model="form.confirm_password"
+                      @blur="validateConfirmPassword"
+                      :class="{
+                        'is-invalid': confirmPasswordError,
+                        'is-valid': form.confirm_password && !confirmPasswordError
+                      }"
+                      required
+                    >
+                    <div class="invalid-feedback" v-if="confirmPasswordError">
+                      {{ confirmPasswordError }}
+                    </div>
                   </div>
                 </div>
               </div>

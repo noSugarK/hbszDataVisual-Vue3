@@ -83,34 +83,6 @@
                   </select>
                 </div>
 
-                <!-- 新密码 -->
-                <div class="col-12">
-                  <label for="newPassword" class="form-label">新密码 <span class="text-muted">(不修改请留空)</span></label>
-                  <input
-                      type="password"
-                      class="form-control"
-                      id="newPassword"
-                      placeholder=""
-                      v-model="form.new_password"
-                  >
-                </div>
-
-                <!-- 确认新密码 -->
-                <div class="col-12">
-                  <label for="confirmPassword" class="form-label">确认新密码</label>
-                  <input
-                      type="password"
-                      class="form-control"
-                      id="confirmPassword"
-                      placeholder=""
-                      v-model="form.confirm_password"
-                      :required="!!form.new_password"
-                  >
-                  <div class="invalid-feedback">
-                    两次输入的密码必须一致。
-                  </div>
-                </div>
-
                 <!-- 重置密码按钮 -->
                 <div class="col-12">
                   <button type="button" class="btn btn-warning" @click="resetPassword" :disabled="loading">
@@ -162,9 +134,7 @@ const form = reactive({
   full_name: '',
   email: '',
   phone: '',
-  user_type: 'user',
-  new_password: '',
-  confirm_password: ''
+  user_type: 'user'
 })
 
 const user = ref(null)
@@ -204,12 +174,6 @@ const loadUserDetail = async () => {
 
 // 处理表单提交
 const handleSubmit = async () => {
-  // 验证密码确认
-  if (form.new_password && form.new_password !== form.confirm_password) {
-    ElMessage.error('两次输入的密码不一致')
-    return
-  }
-
   loading.value = true
 
   try {
@@ -233,11 +197,6 @@ const handleSubmit = async () => {
         userData.is_superuser = false
         userData.is_staff = false
       }
-    }
-
-    // 如果有新密码，添加到数据中
-    if (form.new_password) {
-      userData.password = form.new_password
     }
 
     const result = await UserService.updateUser(user.value.id, userData)
