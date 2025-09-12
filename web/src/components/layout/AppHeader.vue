@@ -1,4 +1,3 @@
-<!-- src/components/layout/AppHeader.vue -->
 <template>
   <header class="app-header">
     <div class="container">
@@ -26,7 +25,8 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="profile">个人中心</el-dropdown-item>
-                <el-dropdown-item command="change-password">修改密码</el-dropdown-item>
+                <el-dropdown-item command="profile-edit">修改信息</el-dropdown-item>
+                <el-dropdown-item command="user-list" v-if="accountStore.user?.is_staff || accountStore.user?.is_superuser">用户列表</el-dropdown-item>
                 <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -68,14 +68,17 @@ const handleUserCommand = (command) => {
     case 'profile':
       router.push('/profile');
       break;
-    case 'change-password':
-      router.push('/profile');
+    case 'profile-edit':
+      router.push('/profile/edit');
       break;
     case 'settings':
       router.push('/settings');
       break;
     case 'help':
       console.log('打开帮助文档');
+      break;
+    case 'user-list':
+      router.push('/users');
       break;
   }
 };
