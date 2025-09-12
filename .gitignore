@@ -62,3 +62,6 @@ ___pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# projects
+backend/apps/account/key/*.pem
