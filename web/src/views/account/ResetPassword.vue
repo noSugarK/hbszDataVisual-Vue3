@@ -166,8 +166,7 @@ const submitNewPassword = async () => {
     alert('密码已重置，请使用新密码登录')
     router.push('/login')
   } catch (err) {
-    const msg = err.response?.data?.message || '重置失败，请重新申请'
-    error.value = msg
+    error.value = err.response?.data?.message || '重置失败，请重新申请'
   } finally {
     submitting.value = false
   }

@@ -35,7 +35,7 @@ import LogoHeader from '../common/LogoHeader.vue'
   max-width: 1400px;
 }
 
-.logo :deep(.login-logo) {
+.logo :deep() {
   width: 40px;
   height: 32px;
   margin: 0;
