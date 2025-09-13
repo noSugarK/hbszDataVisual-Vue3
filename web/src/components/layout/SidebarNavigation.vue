@@ -46,15 +46,20 @@ export default {
 <style scoped>
 /* 侧边栏 */
 .sidebar {
-  width: 250px; /* 设置固定宽度，原来是默认宽度 */
-  /* 整体侧边栏粘性定位 */
+  width: 250px;
+  /* 使用sticky定位使侧边栏跟随滚动 */
   position: sticky;
-  top: 60px; /* 与顶部导航栏高度一致，确保在其下方 */
-  z-index: 80; /* 低于顶部导航栏z-index */
-  /* 确保侧边栏有足够高度以触发粘性效果 */
-  height: calc(100vh - 60px); /* 视口高度减去顶部导航高度 */
-  overflow-y: auto; /* 侧边栏内容过长时可滚动 */
-  max-height: calc(100vh - 60px); /* 限制最大高度 */
+  top: 20px; /* 距离顶部的距离 */
+  z-index: 80;
+  /* 设置最大高度并允许内部滚动 */
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  /* 添加一些样式使侧边栏更美观 */
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  align-self: flex-start; /* 确保在Flex容器中正确对齐 */
 }
 
 .sidebar-header {

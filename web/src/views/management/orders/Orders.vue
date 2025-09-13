@@ -10,14 +10,8 @@
 
       <!-- 内容区 -->
       <div class="content-area">
-        <!-- 移动端二级导航（仅在小屏幕显示，改为路由导航） -->
-        <div v-if="isMobile" class="mobile-filters">
-          <div class="tech-filters">
-            <router-link to="/projects" class="filter-btn" active-class="active" exact>全部</router-link>
-            <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
-            <router-link to="/region" class="filter-btn" active-class="active">区域</router-link>
-          </div>
-        </div>
+        <!-- 移动端二级导航 -->
+        <MobileNavigation v-if="isMobile" />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -127,13 +121,15 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
+import MobileNavigation from "@/components/layout/MobileNavigation.vue";
 
 export default {
   name: 'OrdersManagement',
   components: {
     AppHeader,
     AppFooter,
-    SidebarNavigation
+    SidebarNavigation,
+    MobileNavigation,
   },
   setup() {
     // 移动端状态
@@ -167,6 +163,222 @@ export default {
         amount: '86,500',
         status: '处理中',
         statusClass: 'status-in-progress'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
+      },
+      {
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
+        status: '已完成',
+        statusClass: 'status-completed'
       },
       {
         id: 'ORD-2025-003',
@@ -552,7 +764,7 @@ body {
   margin: 0 -20px 20px -20px;
 }
 
-.mobile-filters .tech-filters {
+.mobile-filters {
   flex-direction: row;
   flex-wrap: auto;
   overflow-x: auto;
@@ -560,7 +772,7 @@ body {
   white-space: nowrap;
 }
 
-.mobile-filters .filter-btn {
+.mobile-filters {
   flex-shrink: 0;
   background-color: transparent;
   color: #5f6368;
@@ -576,12 +788,12 @@ body {
   margin-right: 5px;
 }
 
-.mobile-filters .filter-btn:hover {
+.mobile-filters :hover {
   background-color: #f0f2f5;
   color: #1a73e8;
 }
 
-.mobile-filters .filter-btn.active {
+.mobile-filters  {
   background-color: #f0f2f5;
   color: #1a73e8;
   font-weight: 500;
@@ -601,10 +813,6 @@ body {
 
 @media (max-width: 768px) {
   /* 显示移动端二级导航 */
-  .mobile-filters {
-    display: block;
-  }
-
   .page-header {
     flex-direction: column;
     align-items: flex-start;
@@ -637,10 +845,6 @@ body {
   .orders-table {
     display: block;
     overflow-x: auto;
-  }
-
-  .mobile-filters {
-    margin: 0 -15px 20px -15px;
   }
 }
 </style>

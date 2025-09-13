@@ -10,14 +10,8 @@
 
       <!-- 内容区 -->
       <div class="content-area">
-        <!-- 移动端二级导航（仅在小屏幕显示，改为路由导航） -->
-        <div v-if="isMobile" class="mobile-filters">
-          <div class="tech-filters">
-            <router-link to="/projects" class="filter-btn" active-class="active" exact>全部</router-link>
-            <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
-            <router-link to="/region" class="filter-btn" active-class="active">区域</router-link>
-          </div>
-        </div>
+        <!-- 移动端二级导航 -->
+        <MobileNavigation v-if="isMobile" />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -138,13 +132,15 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
+import MobileNavigation from "@/components/layout/MobileNavigation.vue"
 
 export default {
   name: 'ProjectManagement',
   components: {
     AppHeader,
     AppFooter,
-    SidebarNavigation
+    SidebarNavigation,
+    MobileNavigation
   },
   setup() {
     // 移动端状态
@@ -193,6 +189,156 @@ export default {
         status: '已完成',
         statusClass: 'status-completed',
         progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 3,
+        name: '地下管网升级',
+        manager: '王五',
+        startDate: '2024-11-20',
+        endDate: '2025-04-30',
+        status: '已完成',
+        statusClass: 'status-completed',
+        progress: 100
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
+      },
+      {
+        id: 4,
+        name: '公园绿化工程',
+        manager: '赵六',
+        startDate: '2025-02-10',
+        endDate: '2025-05-20',
+        status: '延期',
+        statusClass: 'status-delayed',
+        progress: 40
       },
       {
         id: 4,
@@ -300,6 +446,7 @@ body {
   display: flex;
   flex: 1;
   gap: 20px;
+  align-items: flex-start;
 }
 
 /* 内容区 */
@@ -594,52 +741,6 @@ body {
   margin-top: 20px;
 }
 
-/* 移动端二级导航 */
-.mobile-filters {
-  display: none;
-  background-color: white;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0 -20px 20px -20px;
-}
-
-.mobile-filters .tech-filters {
-  flex-direction: row;
-  flex-wrap: auto;
-  overflow-x: auto;
-  padding-bottom: 5px;
-  white-space: nowrap;
-}
-
-.mobile-filters .filter-btn {
-  flex-shrink: 0;
-  background-color: transparent;
-  color: #5f6368;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
-  margin-right: 5px;
-}
-
-.mobile-filters .filter-btn:hover {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-}
-
-.mobile-filters .filter-btn.active {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-  font-weight: 500;
-}
-
 /* 响应式设计 */
 @media (max-width: 1024px) {
   .main-content {
@@ -653,11 +754,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* 显示移动端二级导航 */
-  .mobile-filters {
-    display: block;
-  }
-
   .page-header {
     flex-direction: column;
     align-items: flex-start;
@@ -690,10 +786,6 @@ body {
   .projects-table {
     display: block;
     overflow-x: auto;
-  }
-
-  .mobile-filters {
-    margin: 0 -15px 20px -15px;
   }
 }
 </style>

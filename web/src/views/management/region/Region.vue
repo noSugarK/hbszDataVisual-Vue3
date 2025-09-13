@@ -10,14 +10,8 @@
 
       <!-- 内容区 -->
       <div class="content-area">
-        <!-- 移动端二级导航（仅在小屏幕显示，改为路由导航） -->
-        <div v-if="isMobile" class="mobile-filters">
-          <div class="tech-filters">
-            <router-link to="/projects" class="filter-btn" active-class="active" exact>全部</router-link>
-            <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
-            <router-link to="/region" class="filter-btn" active-class="active">区域</router-link>
-          </div>
-        </div>
+        <!-- 移动端二级导航 -->
+        <MobileNavigation v-if="isMobile" />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -127,13 +121,15 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
+import MobileNavigation from "@/components/layout/MobileNavigation.vue"
 
 export default {
   name: 'RegionManagement',
   components: {
     AppHeader,
     AppFooter,
-    SidebarNavigation
+    SidebarNavigation,
+    MobileNavigation,
   },
   setup() {
     // 移动端状态
@@ -178,6 +174,105 @@ export default {
         partners: '1家',
         status: '待开发',
         statusClass: 'status-pending'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
+      },
+      {
+        id: 4,
+        name: '黄石市',
+        manager: '赵六',
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
       },
       {
         id: 4,
@@ -446,26 +541,6 @@ body {
   font-weight: 500;
 }
 
-.status-in-progress {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.status-completed {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-pending {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.status-delayed {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
 /* 模态框 */
 .modal-overlay {
   position: fixed;
@@ -555,25 +630,15 @@ body {
 }
 
 /* 移动端二级导航 */
-.mobile-filters {
-  display: none;
-  background-color: white;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0 -20px 20px -20px;
-}
 
-.mobile-filters .tech-filters {
+.mobile-filters {
   flex-direction: row;
-  flex-wrap: auto;
   overflow-x: auto;
   padding-bottom: 5px;
   white-space: nowrap;
 }
 
-.mobile-filters .filter-btn {
+.mobile-filters {
   flex-shrink: 0;
   background-color: transparent;
   color: #5f6368;
@@ -589,12 +654,12 @@ body {
   margin-right: 5px;
 }
 
-.mobile-filters .filter-btn:hover {
+.mobile-filters :hover {
   background-color: #f0f2f5;
   color: #1a73e8;
 }
 
-.mobile-filters .filter-btn.active {
+.mobile-filters {
   background-color: #f0f2f5;
   color: #1a73e8;
   font-weight: 500;
@@ -614,9 +679,6 @@ body {
 
 @media (max-width: 768px) {
   /* 显示移动端二级导航 */
-  .mobile-filters {
-    display: block;
-  }
 
   .page-header {
     flex-direction: column;
@@ -650,10 +712,6 @@ body {
   .region-table {
     display: block;
     overflow-x: auto;
-  }
-
-  .mobile-filters {
-    margin: 0 -15px 20px -15px;
   }
 }
 </style>
