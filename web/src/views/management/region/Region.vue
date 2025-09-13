@@ -631,38 +631,9 @@ body {
 
 /* 移动端二级导航 */
 
-.mobile-filters {
-  flex-direction: row;
-  overflow-x: auto;
-  padding-bottom: 5px;
-  white-space: nowrap;
-}
-
-.mobile-filters {
-  flex-shrink: 0;
-  background-color: transparent;
-  color: #5f6368;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
-  margin-right: 5px;
-}
-
 .mobile-filters :hover {
   background-color: #f0f2f5;
   color: #1a73e8;
-}
-
-.mobile-filters {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-  font-weight: 500;
 }
 
 /* 响应式设计 */
