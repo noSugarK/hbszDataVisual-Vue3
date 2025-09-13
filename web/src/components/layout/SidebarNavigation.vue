@@ -54,11 +54,6 @@ export default {
   /* 设置最大高度并允许内部滚动 */
   max-height: calc(100vh - 40px);
   overflow-y: auto;
-  /* 添加一些样式使侧边栏更美观 */
-  border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 15px;
   align-self: flex-start; /* 确保在Flex容器中正确对齐 */
 }
 
