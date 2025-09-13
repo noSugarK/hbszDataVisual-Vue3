@@ -92,6 +92,10 @@ const handleUserCommand = (command) => {
   z-index: 1000;
 }
 
+.container {
+  max-width: 1400px;
+}
+
 .logo :deep(.login-logo) {
   width: 36px;
   height: 30px;
