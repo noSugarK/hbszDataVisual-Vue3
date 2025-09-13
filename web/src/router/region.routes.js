@@ -1,0 +1,11 @@
+const regionRoutes = [
+    {
+        path: '/region',
+        name: 'region',
+        component: () => import('@/views/management/region/Region.vue'),
+        meta: { requiresAuth: true, title: '地区列表' },
+    },
+    // 可以在这里添加更多页面路由
+]
+
+export default regionRoutes

@@ -1,5 +1,5 @@
 <template>
-  <div class="project-management-container">
+  <div class="orders-management-container">
     <!-- 头部导航 -->
     <AppHeader />
 
@@ -21,66 +21,59 @@
 
         <!-- 页面标题 -->
         <div class="page-header">
-          <h1>项目管理</h1>
-          <button class="btn btn-primary" @click="showCreateModal = true">创建项目</button>
+          <h1>订单管理</h1>
+          <button class="btn btn-primary" @click="showCreateModal = true">创建订单</button>
         </div>
 
-        <!-- 项目统计卡片 -->
+        <!-- 订单统计卡片 -->
         <div class="stats-cards">
           <div class="stat-card">
-            <div class="stat-value">24</div>
-            <div class="stat-label">进行中项目</div>
+            <div class="stat-value">12</div>
+            <div class="stat-label">待处理订单</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">18</div>
-            <div class="stat-label">已完成项目</div>
+            <div class="stat-value">36</div>
+            <div class="stat-label">处理中订单</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">6</div>
-            <div class="stat-label">待启动项目</div>
+            <div class="stat-value">84</div>
+            <div class="stat-label">已完成订单</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">3</div>
-            <div class="stat-label">延期项目</div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">已取消订单</div>
           </div>
         </div>
 
-        <!-- 项目列表 -->
-        <div class="projects-section">
-          <h2>项目列表</h2>
-          <div class="projects-table-container">
-            <table class="projects-table">
+        <!-- 订单列表 -->
+        <div class="orders-section">
+          <h2>订单列表</h2>
+          <div class="orders-table-container">
+            <table class="orders-table">
               <thead>
               <tr>
-                <th>项目名称</th>
-                <th>负责人</th>
-                <th>开始日期</th>
-                <th>截止日期</th>
+                <th>订单编号</th>
+                <th>客户名称</th>
+                <th>下单时间</th>
+                <th>总金额</th>
                 <th>状态</th>
-                <th>进度</th>
                 <th>操作</th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="project in projects" :key="project.id">
-                <td>{{ project.name }}</td>
-                <td>{{ project.manager }}</td>
-                <td>{{ project.startDate }}</td>
-                <td>{{ project.endDate }}</td>
+              <tr v-for="order in orders" :key="order.id">
+                <td>{{ order.id }}</td>
+                <td>{{ order.customer }}</td>
+                <td>{{ order.date }}</td>
+                <td>¥{{ order.amount }}</td>
                 <td>
-                    <span :class="['status-badge', project.statusClass]">
-                      {{ project.status }}
+                    <span :class="['status-badge', order.statusClass]">
+                      {{ order.status }}
                     </span>
                 </td>
                 <td>
-                  <div class="progress-bar">
-                    <div class="progress-fill" :style="{ width: project.progress + '%' }"></div>
-                  </div>
-                  <span class="progress-text">{{ project.progress }}%</span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="viewProject(project)">查看</button>
-                  <button class="btn btn-sm btn-outline-secondary" @click="editProject(project)">编辑</button>
+                  <button class="btn btn-sm btn-outline-primary" @click="viewOrder(order)">查看</button>
+                  <button class="btn btn-sm btn-outline-secondary" @click="editOrder(order)">编辑</button>
                 </td>
               </tr>
               </tbody>
@@ -88,38 +81,34 @@
           </div>
         </div>
 
-        <!-- 创建项目模态框 -->
+        <!-- 创建订单模态框 -->
         <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
           <div class="modal-content" @click.stop>
             <div class="modal-header">
-              <h3>创建新项目</h3>
+              <h3>创建新订单</h3>
               <button class="close-btn" @click="showCreateModal = false">&times;</button>
             </div>
             <div class="modal-body">
-              <form @submit.prevent="createProject">
+              <form @submit.prevent="createOrder">
                 <div class="form-group">
-                  <label for="projectName">项目名称</label>
-                  <input type="text" id="projectName" v-model="newProject.name" required>
+                  <label for="customerId">客户ID</label>
+                  <input type="text" id="customerId" v-model="newOrder.customerId" required>
                 </div>
                 <div class="form-group">
-                  <label for="projectManager">负责人</label>
-                  <input type="text" id="projectManager" v-model="newProject.manager" required>
+                  <label for="customerName">客户名称</label>
+                  <input type="text" id="customerName" v-model="newOrder.customerName" required>
                 </div>
                 <div class="form-group">
-                  <label for="startDate">开始日期</label>
-                  <input type="date" id="startDate" v-model="newProject.startDate" required>
+                  <label for="orderAmount">订单金额</label>
+                  <input type="number" id="orderAmount" v-model="newOrder.amount" required>
                 </div>
                 <div class="form-group">
-                  <label for="endDate">截止日期</label>
-                  <input type="date" id="endDate" v-model="newProject.endDate" required>
-                </div>
-                <div class="form-group">
-                  <label for="projectDescription">项目描述</label>
-                  <textarea id="projectDescription" v-model="newProject.description" rows="3"></textarea>
+                  <label for="orderDescription">订单描述</label>
+                  <textarea id="orderDescription" v-model="newOrder.description" rows="3"></textarea>
                 </div>
                 <div class="form-actions">
                   <button type="button" class="btn btn-secondary" @click="showCreateModal = false">取消</button>
-                  <button type="submit" class="btn btn-primary">创建项目</button>
+                  <button type="submit" class="btn btn-primary">创建订单</button>
                 </div>
               </form>
             </div>
@@ -140,7 +129,7 @@ import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
 
 export default {
-  name: 'ProjectManagement',
+  name: 'OrdersManagement',
   components: {
     AppHeader,
     AppFooter,
@@ -153,66 +142,47 @@ export default {
     // 模态框状态
     const showCreateModal = ref(false)
 
-    // 新项目数据
-    const newProject = ref({
-      name: '',
-      manager: '',
-      startDate: '',
-      endDate: '',
+    // 新订单数据
+    const newOrder = ref({
+      customerId: '',
+      customerName: '',
+      amount: '',
       description: ''
     })
 
-    // 项目数据
-    const projects = ref([
+    // 订单数据
+    const orders = ref([
       {
-        id: 1,
-        name: '市政道路改造项目',
-        manager: '张三',
-        startDate: '2025-01-15',
-        endDate: '2025-06-30',
-        status: '进行中',
-        statusClass: 'status-in-progress',
-        progress: 65
+        id: 'ORD-2025-001',
+        customer: '湖北建设集团',
+        date: '2025-09-10',
+        amount: '125,000',
+        status: '待处理',
+        statusClass: 'status-pending'
       },
       {
-        id: 2,
-        name: '桥梁建设工程',
-        manager: '李四',
-        startDate: '2025-03-01',
-        endDate: '2025-09-15',
-        status: '待启动',
-        statusClass: 'status-pending',
-        progress: 0
+        id: 'ORD-2025-002',
+        customer: '武汉市政公司',
+        date: '2025-09-09',
+        amount: '86,500',
+        status: '处理中',
+        statusClass: 'status-in-progress'
       },
       {
-        id: 3,
-        name: '地下管网升级',
-        manager: '王五',
-        startDate: '2024-11-20',
-        endDate: '2025-04-30',
+        id: 'ORD-2025-003',
+        customer: '宜昌工程公司',
+        date: '2025-09-08',
+        amount: '210,000',
         status: '已完成',
-        statusClass: 'status-completed',
-        progress: 100
+        statusClass: 'status-completed'
       },
       {
-        id: 4,
-        name: '公园绿化工程',
-        manager: '赵六',
-        startDate: '2025-02-10',
-        endDate: '2025-05-20',
-        status: '延期',
-        statusClass: 'status-delayed',
-        progress: 40
-      },
-      {
-        id: 5,
-        name: '城市照明系统',
-        manager: '孙七',
-        startDate: '2025-04-01',
-        endDate: '2025-08-30',
-        status: '进行中',
-        statusClass: 'status-in-progress',
-        progress: 25
+        id: 'ORD-2025-004',
+        customer: '荆州建筑公司',
+        date: '2025-09-07',
+        amount: '75,200',
+        status: '已取消',
+        statusClass: 'status-delayed'
       }
     ])
 
@@ -221,29 +191,28 @@ export default {
       isMobile.value = window.innerWidth < 768
     }
 
-    // 查看项目详情
-    const viewProject = (project) => {
-      console.log('查看项目:', project)
-      // 这里可以跳转到项目详情页面
+    // 查看订单详情
+    const viewOrder = (order) => {
+      console.log('查看订单:', order)
+      // 这里可以跳转到订单详情页面
     }
 
-    // 编辑项目
-    const editProject = (project) => {
-      console.log('编辑项目:', project)
+    // 编辑订单
+    const editOrder = (order) => {
+      console.log('编辑订单:', order)
       // 这里可以打开编辑模态框
     }
 
-    // 创建项目
-    const createProject = () => {
-      console.log('创建项目:', newProject.value)
-      // 这里可以调用API创建项目
+    // 创建订单
+    const createOrder = () => {
+      console.log('创建订单:', newOrder.value)
+      // 这里可以调用API创建订单
       showCreateModal.value = false
       // 重置表单
-      newProject.value = {
-        name: '',
-        manager: '',
-        startDate: '',
-        endDate: '',
+      newOrder.value = {
+        customerId: '',
+        customerName: '',
+        amount: '',
         description: ''
       }
     }
@@ -260,11 +229,11 @@ export default {
     return {
       isMobile,
       showCreateModal,
-      newProject,
-      projects,
-      viewProject,
-      editProject,
-      createProject
+      newOrder,
+      orders,
+      viewOrder,
+      editOrder,
+      createOrder
     }
   }
 }
@@ -286,7 +255,7 @@ body {
 }
 
 /* 全局容器 */
-.project-management-container {
+.orders-management-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -418,40 +387,40 @@ body {
   color: #6c757d;
 }
 
-/* 项目列表 */
-.projects-section h2 {
+/* 订单列表 */
+.orders-section h2 {
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 20px;
   color: #212529;
 }
 
-.projects-table-container {
+.orders-table-container {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.projects-table {
+.orders-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.projects-table th,
-.projects-table td {
+.orders-table th,
+.orders-table td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #dee2e6;
 }
 
-.projects-table th {
+.orders-table th {
   background-color: #f8f9fa;
   font-weight: 600;
   color: #495057;
 }
 
-.projects-table tbody tr:hover {
+.orders-table tbody tr:hover {
   background-color: #f8f9fa;
 }
 
@@ -482,28 +451,6 @@ body {
 .status-delayed {
   background-color: #f8d7da;
   color: #721c24;
-}
-
-/* 进度条 */
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background-color: #e9ecef;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #0d6efd;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.progress-text {
-  font-size: 0.8rem;
-  color: #6c757d;
 }
 
 /* 模态框 */
@@ -668,12 +615,12 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 
-  .projects-table {
+  .orders-table {
     font-size: 0.8rem;
   }
 
-  .projects-table th,
-  .projects-table td {
+  .orders-table th,
+  .orders-table td {
     padding: 8px 10px;
   }
 
@@ -687,7 +634,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .projects-table {
+  .orders-table {
     display: block;
     overflow-x: auto;
   }

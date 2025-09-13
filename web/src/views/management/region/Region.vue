@@ -1,5 +1,5 @@
 <template>
-  <div class="project-management-container">
+  <div class="region-management-container">
     <!-- 头部导航 -->
     <AppHeader />
 
@@ -21,66 +21,59 @@
 
         <!-- 页面标题 -->
         <div class="page-header">
-          <h1>项目管理</h1>
-          <button class="btn btn-primary" @click="showCreateModal = true">创建项目</button>
+          <h1>区域管理</h1>
+          <button class="btn btn-primary" @click="showCreateModal = true">添加区域</button>
         </div>
 
-        <!-- 项目统计卡片 -->
+        <!-- 区域统计卡片 -->
         <div class="stats-cards">
           <div class="stat-card">
-            <div class="stat-value">24</div>
-            <div class="stat-label">进行中项目</div>
+            <div class="stat-value">8</div>
+            <div class="stat-label">运营区域</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">18</div>
-            <div class="stat-label">已完成项目</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">6</div>
-            <div class="stat-label">待启动项目</div>
+            <div class="stat-value">15</div>
+            <div class="stat-label">项目区域</div>
           </div>
           <div class="stat-card">
             <div class="stat-value">3</div>
-            <div class="stat-label">延期项目</div>
+            <div class="stat-label">待开发区域</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">26</div>
+            <div class="stat-label">合作单位</div>
           </div>
         </div>
 
-        <!-- 项目列表 -->
-        <div class="projects-section">
-          <h2>项目列表</h2>
-          <div class="projects-table-container">
-            <table class="projects-table">
+        <!-- 区域列表 -->
+        <div class="region-section">
+          <h2>区域列表</h2>
+          <div class="region-table-container">
+            <table class="region-table">
               <thead>
               <tr>
-                <th>项目名称</th>
+                <th>区域名称</th>
                 <th>负责人</th>
-                <th>开始日期</th>
-                <th>截止日期</th>
+                <th>项目数量</th>
+                <th>合作单位</th>
                 <th>状态</th>
-                <th>进度</th>
                 <th>操作</th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="project in projects" :key="project.id">
-                <td>{{ project.name }}</td>
-                <td>{{ project.manager }}</td>
-                <td>{{ project.startDate }}</td>
-                <td>{{ project.endDate }}</td>
+              <tr v-for="region in regions" :key="region.id">
+                <td>{{ region.name }}</td>
+                <td>{{ region.manager }}</td>
+                <td>{{ region.projectCount }}</td>
+                <td>{{ region.partners }}</td>
                 <td>
-                    <span :class="['status-badge', project.statusClass]">
-                      {{ project.status }}
+                    <span :class="['status-badge', region.statusClass]">
+                      {{ region.status }}
                     </span>
                 </td>
                 <td>
-                  <div class="progress-bar">
-                    <div class="progress-fill" :style="{ width: project.progress + '%' }"></div>
-                  </div>
-                  <span class="progress-text">{{ project.progress }}%</span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="viewProject(project)">查看</button>
-                  <button class="btn btn-sm btn-outline-secondary" @click="editProject(project)">编辑</button>
+                  <button class="btn btn-sm btn-outline-primary" @click="viewRegion(region)">查看</button>
+                  <button class="btn btn-sm btn-outline-secondary" @click="editRegion(region)">编辑</button>
                 </td>
               </tr>
               </tbody>
@@ -88,38 +81,34 @@
           </div>
         </div>
 
-        <!-- 创建项目模态框 -->
+        <!-- 添加区域模态框 -->
         <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
           <div class="modal-content" @click.stop>
             <div class="modal-header">
-              <h3>创建新项目</h3>
+              <h3>添加新区域</h3>
               <button class="close-btn" @click="showCreateModal = false">&times;</button>
             </div>
             <div class="modal-body">
-              <form @submit.prevent="createProject">
+              <form @submit.prevent="createRegion">
                 <div class="form-group">
-                  <label for="projectName">项目名称</label>
-                  <input type="text" id="projectName" v-model="newProject.name" required>
+                  <label for="regionName">区域名称</label>
+                  <input type="text" id="regionName" v-model="newRegion.name" required>
                 </div>
                 <div class="form-group">
-                  <label for="projectManager">负责人</label>
-                  <input type="text" id="projectManager" v-model="newProject.manager" required>
+                  <label for="regionManager">负责人</label>
+                  <input type="text" id="regionManager" v-model="newRegion.manager" required>
                 </div>
                 <div class="form-group">
-                  <label for="startDate">开始日期</label>
-                  <input type="date" id="startDate" v-model="newProject.startDate" required>
+                  <label for="partners">合作单位</label>
+                  <input type="text" id="partners" v-model="newRegion.partners">
                 </div>
                 <div class="form-group">
-                  <label for="endDate">截止日期</label>
-                  <input type="date" id="endDate" v-model="newProject.endDate" required>
-                </div>
-                <div class="form-group">
-                  <label for="projectDescription">项目描述</label>
-                  <textarea id="projectDescription" v-model="newProject.description" rows="3"></textarea>
+                  <label for="regionDescription">区域描述</label>
+                  <textarea id="regionDescription" v-model="newRegion.description" rows="3"></textarea>
                 </div>
                 <div class="form-actions">
                   <button type="button" class="btn btn-secondary" @click="showCreateModal = false">取消</button>
-                  <button type="submit" class="btn btn-primary">创建项目</button>
+                  <button type="submit" class="btn btn-primary">添加区域</button>
                 </div>
               </form>
             </div>
@@ -140,7 +129,7 @@ import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
 
 export default {
-  name: 'ProjectManagement',
+  name: 'RegionManagement',
   components: {
     AppHeader,
     AppFooter,
@@ -153,66 +142,60 @@ export default {
     // 模态框状态
     const showCreateModal = ref(false)
 
-    // 新项目数据
-    const newProject = ref({
+    // 新区域数据
+    const newRegion = ref({
       name: '',
       manager: '',
-      startDate: '',
-      endDate: '',
+      partners: '',
       description: ''
     })
 
-    // 项目数据
-    const projects = ref([
+    // 区域数据
+    const regions = ref([
       {
         id: 1,
-        name: '市政道路改造项目',
+        name: '武汉市',
         manager: '张三',
-        startDate: '2025-01-15',
-        endDate: '2025-06-30',
-        status: '进行中',
-        statusClass: 'status-in-progress',
-        progress: 65
+        projectCount: 12,
+        partners: '3家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
       },
       {
         id: 2,
-        name: '桥梁建设工程',
+        name: '宜昌市',
         manager: '李四',
-        startDate: '2025-03-01',
-        endDate: '2025-09-15',
-        status: '待启动',
-        statusClass: 'status-pending',
-        progress: 0
+        projectCount: 8,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
       },
       {
         id: 3,
-        name: '地下管网升级',
+        name: '襄阳市',
         manager: '王五',
-        startDate: '2024-11-20',
-        endDate: '2025-04-30',
-        status: '已完成',
-        statusClass: 'status-completed',
-        progress: 100
+        projectCount: 5,
+        partners: '1家',
+        status: '待开发',
+        statusClass: 'status-pending'
       },
       {
         id: 4,
-        name: '公园绿化工程',
+        name: '黄石市',
         manager: '赵六',
-        startDate: '2025-02-10',
-        endDate: '2025-05-20',
-        status: '延期',
-        statusClass: 'status-delayed',
-        progress: 40
+        projectCount: 7,
+        partners: '2家',
+        status: '运营中',
+        statusClass: 'status-in-progress'
       },
       {
         id: 5,
-        name: '城市照明系统',
+        name: '十堰市',
         manager: '孙七',
-        startDate: '2025-04-01',
-        endDate: '2025-08-30',
-        status: '进行中',
-        statusClass: 'status-in-progress',
-        progress: 25
+        projectCount: 3,
+        partners: '1家',
+        status: '项目中',
+        statusClass: 'status-completed'
       }
     ])
 
@@ -221,29 +204,28 @@ export default {
       isMobile.value = window.innerWidth < 768
     }
 
-    // 查看项目详情
-    const viewProject = (project) => {
-      console.log('查看项目:', project)
-      // 这里可以跳转到项目详情页面
+    // 查看区域详情
+    const viewRegion = (region) => {
+      console.log('查看区域:', region)
+      // 这里可以跳转到区域详情页面
     }
 
-    // 编辑项目
-    const editProject = (project) => {
-      console.log('编辑项目:', project)
+    // 编辑区域
+    const editRegion = (region) => {
+      console.log('编辑区域:', region)
       // 这里可以打开编辑模态框
     }
 
-    // 创建项目
-    const createProject = () => {
-      console.log('创建项目:', newProject.value)
-      // 这里可以调用API创建项目
+    // 创建区域
+    const createRegion = () => {
+      console.log('创建区域:', newRegion.value)
+      // 这里可以调用API创建区域
       showCreateModal.value = false
       // 重置表单
-      newProject.value = {
+      newRegion.value = {
         name: '',
         manager: '',
-        startDate: '',
-        endDate: '',
+        partners: '',
         description: ''
       }
     }
@@ -260,11 +242,11 @@ export default {
     return {
       isMobile,
       showCreateModal,
-      newProject,
-      projects,
-      viewProject,
-      editProject,
-      createProject
+      newRegion,
+      regions,
+      viewRegion,
+      editRegion,
+      createRegion
     }
   }
 }
@@ -286,7 +268,7 @@ body {
 }
 
 /* 全局容器 */
-.project-management-container {
+.region-management-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -418,40 +400,40 @@ body {
   color: #6c757d;
 }
 
-/* 项目列表 */
-.projects-section h2 {
+/* 区域列表 */
+.region-section h2 {
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 20px;
   color: #212529;
 }
 
-.projects-table-container {
+.region-table-container {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.projects-table {
+.region-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.projects-table th,
-.projects-table td {
+.region-table th,
+.region-table td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #dee2e6;
 }
 
-.projects-table th {
+.region-table th {
   background-color: #f8f9fa;
   font-weight: 600;
   color: #495057;
 }
 
-.projects-table tbody tr:hover {
+.region-table tbody tr:hover {
   background-color: #f8f9fa;
 }
 
@@ -482,28 +464,6 @@ body {
 .status-delayed {
   background-color: #f8d7da;
   color: #721c24;
-}
-
-/* 进度条 */
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background-color: #e9ecef;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #0d6efd;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.progress-text {
-  font-size: 0.8rem;
-  color: #6c757d;
 }
 
 /* 模态框 */
@@ -668,12 +628,12 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 
-  .projects-table {
+  .region-table {
     font-size: 0.8rem;
   }
 
-  .projects-table th,
-  .projects-table td {
+  .region-table th,
+  .region-table td {
     padding: 8px 10px;
   }
 
@@ -687,7 +647,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .projects-table {
+  .region-table {
     display: block;
     overflow-x: auto;
   }

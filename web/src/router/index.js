@@ -5,12 +5,18 @@ import { useAccountStore } from '../stores/account.js'
 import accountRoutes from './account.routes.js'
 import mainRoutes from './main.routes.js'
 import userRoutes from './user.routes.js'
+import projectsRoutes from "@/router/projects.routes.js";
+import regionRoutes from "@/router/region.routes.js";
+import ordersRoutes from "@/router/orders.routes.js";
 
 // 合并所有路由
 const routes = [
   ...accountRoutes,
   ...mainRoutes,
   ...userRoutes,
+  ...projectsRoutes,
+  ...regionRoutes,
+  ...ordersRoutes,
   // 404 页面
   {
     path: '/:pathMatch(.*)*',
