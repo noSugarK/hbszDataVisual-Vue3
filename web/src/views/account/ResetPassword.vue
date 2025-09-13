@@ -25,11 +25,13 @@
         <p class="text-muted text-center mb-4">
           请重新申请密码重置链接
         </p>
-        <CustomButton
-            text="重新申请"
+        <button
+            type="button"
+            class="btn custom-secondary-btn w-100 mb-3 animate__animated animate__pulse animate__delay-1s"
             @click="$router.push('/forgot-password')"
-            button-class="custom-secondary-btn"
-        />
+        >
+          重新申请
+        </button>
         <div class="text-center mt-3">
           <a href="#" class="text-decoration-none" @click.prevent="$router.push('/login')">← 返回登录</a>
         </div>
@@ -42,38 +44,42 @@
         </p>
 
         <form @submit.prevent="submitNewPassword">
-          <CustomInput
-              id="password"
-              v-model="password"
-              type="password"
-              label="新密码"
-              placeholder="至少 8 位"
-              :required="true"
-              animation-class="animate__fadeInLeft"
-              @input="validateForm"
-          />
+          <div class="mb-3 animate__animated animate__fadeInLeft">
+            <label for="password" class="form-label">新密码</label>
+            <input
+                id="password"
+                v-model="password"
+                type="password"
+                class="form-control custom-input"
+                placeholder="至少 8 位"
+                required
+            />
+          </div>
 
-          <CustomInput
-              id="confirmPassword"
-              v-model="confirmPassword"
-              type="password"
-              label="确认新密码"
-              placeholder="请再次输入"
-              :required="true"
-              animation-class="animate__fadeInRight"
-              @input="validateForm"
-          />
+          <div class="mb-3 animate__animated animate__fadeInRight">
+            <label for="confirmPassword" class="form-label">确认新密码</label>
+            <input
+                id="confirmPassword"
+                v-model="confirmPassword"
+                type="password"
+                class="form-control custom-input"
+                placeholder="请再次输入"
+                required
+            />
+          </div>
 
           <div v-if="error" class="text-danger small mb-3">
             {{ error }}
           </div>
 
-          <CustomButton
-              text="保存新密码"
-              :loading="submitting"
-              loading-text="保存中..."
+          <button
+              type="submit"
               :disabled="!formValid || submitting"
-          />
+              class="btn custom-btn w-100 mb-3 animate__animated animate__pulse animate__delay-1s"
+          >
+            <span v-if="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {{ submitting ? '保存中...' : '保存新密码' }}
+          </button>
         </form>
 
         <div class="text-center mt-3">
@@ -86,12 +92,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AccountService from '@/services/account.services.js'
 import LogoHeader from "@/components/common/LogoHeader.vue";
-import CustomInput from "@/components/account/CustomInput.vue";
-import CustomButton from "@/components/account/CustomButton.vue";
 import AccountFooter from "@/components/layout/AccountFooter.vue";
 
 const route = useRoute()
@@ -145,6 +149,11 @@ const validateForm = () => {
   formValid.value = true
 }
 
+// 监听密码输入变化以实时验证
+watch([password, confirmPassword], () => {
+  validateForm()
+})
+
 // 提交新密码
 const submitNewPassword = async () => {
   validateForm()
@@ -190,6 +199,52 @@ const submitNewPassword = async () => {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
+}
+
+/* 自定义输入框样式 */
+.custom-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e1e5eb;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+.custom-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+  outline: 0;
+}
+
+/* 自定义主要按钮样式 */
+.custom-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.custom-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* 自定义次要按钮样式 */
