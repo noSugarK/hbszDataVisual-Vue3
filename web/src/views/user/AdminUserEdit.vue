@@ -94,7 +94,7 @@
               <hr class="my-4">
 
               <div class="d-flex justify-content-between">
-                <button class="btn btn-secondary" type="button" @click="cancelEdit">
+                <button class="btn btn-secondary" type="button" @click="goBack">
                   取消
                 </button>
                 <button class="btn btn-primary" type="submit" :disabled="loading">
@@ -231,7 +231,7 @@ const resetPassword = async () => {
         phone: form.phone,
         password: 'hbsz@123'
       }
-      
+
       // 添加用户类型信息
       if (isSuperuser) {
         if (form.user_type === 'superuser') {
@@ -258,9 +258,14 @@ const resetPassword = async () => {
   })
 }
 
-// 取消编辑
-const cancelEdit = () => {
-  router.push(`/users/${user.value.id}`)
+// 返回上一界面
+const goBack = () => {
+  // 如果有浏览历史则返回上一页，否则跳转到用户详情页
+  if (window.history.length > 1) {
+    router.go(-1)
+  } else {
+    router.push(`/users/${user.value.id}`)
+  }
 }
 
 onMounted(() => {
