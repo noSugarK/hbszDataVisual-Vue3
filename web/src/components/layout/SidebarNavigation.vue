@@ -9,7 +9,7 @@
 
     <!-- 二级导航 - 技术栈过滤（改为路由导航） -->
     <div class="tech-filters-container">
-      <h4 class="filters-title">全部内容</h4>
+      <h3 class="filters-title">全部内容</h3>
       <div class="tech-filters">
         <router-link to="/projects" class="filter-btn" active-class="active" exact>项目</router-link>
         <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
@@ -169,28 +169,10 @@ export default {
   cursor: pointer;
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 隐藏桌面端侧边栏在小屏幕设备上 */
 @media (max-width: 768px) {
   .sidebar {
-    position: static;
-    height: auto;
-    max-height: none;
-    overflow-y: visible;
     display: none;
-  }
-
-  /* 小屏仍隐藏桌面端二级导航 */
-  .tech-filters-container {
-    display: none;
-  }
-
-  /* 调整侧边栏间距 */
-  .sidebar-header {
-    margin-bottom: 0;
-  }
-
-  .tags-section {
-    margin-top: 20px;
   }
 }
 

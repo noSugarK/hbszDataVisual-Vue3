@@ -11,7 +11,7 @@
       <!-- 内容区 -->
       <div class="content-area">
         <!-- 移动端二级导航 -->
-        <MobileNavigation v-if="isMobile" />
+        <MobileNavigation />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -20,60 +20,10 @@
         </div>
 
         <!-- 区域统计卡片 -->
-        <div class="stats-cards">
-          <div class="stat-card">
-            <div class="stat-value">8</div>
-            <div class="stat-label">运营区域</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">15</div>
-            <div class="stat-label">项目区域</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">3</div>
-            <div class="stat-label">待开发区域</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">26</div>
-            <div class="stat-label">合作单位</div>
-          </div>
-        </div>
+        <StatsCards :stats="statsData" />
 
         <!-- 区域列表 -->
-        <div class="region-section">
-          <h2>区域列表</h2>
-          <div class="region-table-container">
-            <table class="region-table">
-              <thead>
-              <tr>
-                <th>区域名称</th>
-                <th>负责人</th>
-                <th>项目数量</th>
-                <th>合作单位</th>
-                <th>状态</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="region in regions" :key="region.id">
-                <td>{{ region.name }}</td>
-                <td>{{ region.manager }}</td>
-                <td>{{ region.projectCount }}</td>
-                <td>{{ region.partners }}</td>
-                <td>
-                    <span :class="['status-badge', region.statusClass]">
-                      {{ region.status }}
-                    </span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="viewRegion(region)">查看</button>
-                  <button class="btn btn-sm btn-outline-secondary" @click="editRegion(region)">编辑</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <RegionList :regions="regions" @view-region="viewRegion" @edit-region="editRegion" />
 
         <!-- 添加区域模态框 -->
         <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
@@ -117,11 +67,13 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
 import MobileNavigation from "@/components/layout/MobileNavigation.vue"
+import StatsCards from "@/components/common/StatsCards.vue"
+import RegionList from "@/components/region/RegionList.vue"
 
 export default {
   name: 'RegionManagement',
@@ -130,11 +82,10 @@ export default {
     AppFooter,
     SidebarNavigation,
     MobileNavigation,
+    StatsCards,
+    RegionList
   },
   setup() {
-    // 移动端状态
-    const isMobile = ref(false)
-
     // 模态框状态
     const showCreateModal = ref(false)
 
@@ -145,6 +96,14 @@ export default {
       partners: '',
       description: ''
     })
+
+    // 区域统计数据
+    const statsData = ref([
+      { value: 8, label: '运营区域', color: '#0d6efd' },
+      { value: 15, label: '项目区域', color: '#0d6efd' },
+      { value: 3, label: '待开发区域', color: '#0d6efd' },
+      { value: 26, label: '合作单位', color: '#0d6efd' }
+    ])
 
     // 区域数据
     const regions = ref([
@@ -185,105 +144,6 @@ export default {
         statusClass: 'status-in-progress'
       },
       {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
-        id: 4,
-        name: '黄石市',
-        manager: '赵六',
-        projectCount: 7,
-        partners: '2家',
-        status: '运营中',
-        statusClass: 'status-in-progress'
-      },
-      {
         id: 5,
         name: '十堰市',
         manager: '孙七',
@@ -293,11 +153,6 @@ export default {
         statusClass: 'status-completed'
       }
     ])
-
-    // 响应式处理
-    const checkScreenSize = () => {
-      isMobile.value = window.innerWidth < 768
-    }
 
     // 查看区域详情
     const viewRegion = (region) => {
@@ -325,19 +180,10 @@ export default {
       }
     }
 
-    onMounted(() => {
-      checkScreenSize()
-      window.addEventListener('resize', checkScreenSize)
-    })
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', checkScreenSize)
-    })
-
     return {
-      isMobile,
       showCreateModal,
       newRegion,
+      statsData,
       regions,
       viewRegion,
       editRegion,
@@ -437,110 +283,6 @@ body {
   border-color: #565e64;
 }
 
-.btn-outline-primary {
-  color: #0d6efd;
-  background-color: transparent;
-  border-color: #0d6efd;
-}
-
-.btn-outline-primary:hover {
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.btn-outline-secondary {
-  color: #6c757d;
-  background-color: transparent;
-  border-color: #6c757d;
-}
-
-.btn-outline-secondary:hover {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  border-radius: 0.2rem;
-}
-
-/* 统计卡片 */
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.stat-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #0d6efd;
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-/* 区域列表 */
-.region-section h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #212529;
-}
-
-.region-table-container {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.region-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.region-table th,
-.region-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.region-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.region-table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* 状态标签 */
-.status-badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
 /* 模态框 */
 .modal-overlay {
   position: fixed;
@@ -629,13 +371,6 @@ body {
   margin-top: 20px;
 }
 
-/* 移动端二级导航 */
-
-.mobile-filters :hover {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-}
-
 /* 响应式设计 */
 @media (max-width: 1024px) {
   .main-content {
@@ -649,40 +384,14 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* 显示移动端二级导航 */
-
   .page-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
 
-  .stats-cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .region-table {
-    font-size: 0.8rem;
-  }
-
-  .region-table th,
-  .region-table td {
-    padding: 8px 10px;
-  }
-
   .modal-content {
     margin: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .region-table {
-    display: block;
-    overflow-x: auto;
   }
 }
 </style>

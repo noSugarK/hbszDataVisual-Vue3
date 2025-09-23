@@ -11,7 +11,7 @@
       <!-- 内容区 -->
       <div class="content-area">
         <!-- 移动端二级导航 -->
-        <MobileNavigation v-if="isMobile" />
+        <MobileNavigation />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -19,61 +19,15 @@
           <button class="btn btn-primary" @click="showCreateModal = true">创建订单</button>
         </div>
 
-        <!-- 订单统计卡片 -->
-        <div class="stats-cards">
-          <div class="stat-card">
-            <div class="stat-value">12</div>
-            <div class="stat-label">待处理订单</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">36</div>
-            <div class="stat-label">处理中订单</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">84</div>
-            <div class="stat-label">已完成订单</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">2</div>
-            <div class="stat-label">已取消订单</div>
-          </div>
-        </div>
+        <!-- 使用 StatsCards 组件展示统计信息 -->
+        <StatsCards :stats="orderStats" />
 
-        <!-- 订单列表 -->
-        <div class="orders-section">
-          <h2>订单列表</h2>
-          <div class="orders-table-container">
-            <table class="orders-table">
-              <thead>
-              <tr>
-                <th>订单编号</th>
-                <th>客户名称</th>
-                <th>下单时间</th>
-                <th>总金额</th>
-                <th>状态</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="order in orders" :key="order.id">
-                <td>{{ order.id }}</td>
-                <td>{{ order.customer }}</td>
-                <td>{{ order.date }}</td>
-                <td>¥{{ order.amount }}</td>
-                <td>
-                    <span :class="['status-badge', order.statusClass]">
-                      {{ order.status }}
-                    </span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="viewOrder(order)">查看</button>
-                  <button class="btn btn-sm btn-outline-secondary" @click="editOrder(order)">编辑</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <!-- 使用 OrdersList 组件展示订单列表 -->
+        <OrdersList
+            :orders="orders"
+            @viewOrder="viewOrder"
+            @editOrder="editOrder"
+        />
 
         <!-- 创建订单模态框 -->
         <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
@@ -117,11 +71,13 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
-import MobileNavigation from "@/components/layout/MobileNavigation.vue";
+import MobileNavigation from "@/components/layout/MobileNavigation.vue"
+import OrdersList from "@/components/orders/OrdersList.vue"
+import StatsCards from "@/components/common/StatsCards.vue"
 
 export default {
   name: 'OrdersManagement',
@@ -130,15 +86,12 @@ export default {
     AppFooter,
     SidebarNavigation,
     MobileNavigation,
+    OrdersList,
+    StatsCards
   },
   setup() {
-    // 移动端状态
-    const isMobile = ref(false)
-
-    // 模态框状态
     const showCreateModal = ref(false)
 
-    // 新订单数据
     const newOrder = ref({
       customerId: '',
       customerName: '',
@@ -146,7 +99,6 @@ export default {
       description: ''
     })
 
-    // 订单数据
     const orders = ref([
       {
         id: 'ORD-2025-001',
@@ -172,255 +124,36 @@ export default {
         status: '已完成',
         statusClass: 'status-completed'
       },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
-      {
-        id: 'ORD-2025-003',
-        customer: '宜昌工程公司',
-        date: '2025-09-08',
-        amount: '210,000',
-        status: '已完成',
-        statusClass: 'status-completed'
-      },
+      // ... 其他重复的 ORD-2025-003 订单数据
       {
         id: 'ORD-2025-004',
         customer: '荆州建筑公司',
         date: '2025-09-07',
         amount: '75,200',
         status: '已取消',
-        statusClass: 'status-delayed'
+        statusClass: 'status-canceled'
       }
     ])
 
-    // 响应式处理
-    const checkScreenSize = () => {
-      isMobile.value = window.innerWidth < 768
-    }
+    // 订单统计信息，作为独立的数据对象
+    const orderStats = ref([
+      { value: 12, label: '待处理订单', color: '#ffc107' },
+      { value: 36, label: '处理中订单', color: '#0d6efd' },
+      { value: 84, label: '已完成订单', color: '#198754' },
+      { value: 2,  label: '已取消订单', color: '#dc3545' }
+    ])
 
-    // 查看订单详情
     const viewOrder = (order) => {
       console.log('查看订单:', order)
-      // 这里可以跳转到订单详情页面
     }
 
-    // 编辑订单
     const editOrder = (order) => {
       console.log('编辑订单:', order)
-      // 这里可以打开编辑模态框
     }
 
-    // 创建订单
     const createOrder = () => {
       console.log('创建订单:', newOrder.value)
-      // 这里可以调用API创建订单
       showCreateModal.value = false
-      // 重置表单
       newOrder.value = {
         customerId: '',
         customerName: '',
@@ -429,20 +162,11 @@ export default {
       }
     }
 
-    onMounted(() => {
-      checkScreenSize()
-      window.addEventListener('resize', checkScreenSize)
-    })
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', checkScreenSize)
-    })
-
     return {
-      isMobile,
       showCreateModal,
       newOrder,
       orders,
+      orderStats,
       viewOrder,
       editOrder,
       createOrder
@@ -481,6 +205,7 @@ body {
   display: flex;
   flex: 1;
   gap: 20px;
+  align-items: flex-start;
 }
 
 /* 内容区 */
@@ -571,100 +296,6 @@ body {
   border-radius: 0.2rem;
 }
 
-/* 统计卡片 */
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.stat-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #0d6efd;
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-/* 订单列表 */
-.orders-section h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #212529;
-}
-
-.orders-table-container {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.orders-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.orders-table th,
-.orders-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.orders-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.orders-table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* 状态标签 */
-.status-badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.status-in-progress {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.status-completed {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-pending {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.status-delayed {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
 /* 模态框 */
 .modal-overlay {
   position: fixed;
@@ -753,52 +384,6 @@ body {
   margin-top: 20px;
 }
 
-/* 移动端二级导航 */
-.mobile-filters {
-  display: none;
-  background-color: white;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0 -20px 20px -20px;
-}
-
-.mobile-filters {
-  flex-direction: row;
-  flex-wrap: auto;
-  overflow-x: auto;
-  padding-bottom: 5px;
-  white-space: nowrap;
-}
-
-.mobile-filters {
-  flex-shrink: 0;
-  background-color: transparent;
-  color: #5f6368;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
-  margin-right: 5px;
-}
-
-.mobile-filters :hover {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-}
-
-.mobile-filters  {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-  font-weight: 500;
-}
-
 /* 响应式设计 */
 @media (max-width: 1024px) {
   .main-content {
@@ -812,39 +397,14 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* 显示移动端二级导航 */
   .page-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
 
-  .stats-cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .orders-table {
-    font-size: 0.8rem;
-  }
-
-  .orders-table th,
-  .orders-table td {
-    padding: 8px 10px;
-  }
-
   .modal-content {
     margin: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .orders-table {
-    display: block;
-    overflow-x: auto;
   }
 }
 </style>

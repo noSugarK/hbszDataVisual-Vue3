@@ -11,7 +11,7 @@
       <!-- 内容区 -->
       <div class="content-area">
         <!-- 移动端二级导航 -->
-        <MobileNavigation v-if="isMobile" />
+        <MobileNavigation />
 
         <!-- 页面标题 -->
         <div class="page-header">
@@ -19,68 +19,15 @@
           <button class="btn btn-primary" @click="showCreateModal = true">创建项目</button>
         </div>
 
-        <!-- 项目统计卡片 -->
-        <div class="stats-cards">
-          <div class="stat-card">
-            <div class="stat-value">24</div>
-            <div class="stat-label">进行中项目</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">18</div>
-            <div class="stat-label">已完成项目</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">6</div>
-            <div class="stat-label">待启动项目</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">3</div>
-            <div class="stat-label">延期项目</div>
-          </div>
-        </div>
+        <!-- 使用 StatsCards 组件展示统计信息 -->
+        <StatsCards :stats="projectStats" />
 
-        <!-- 项目列表 -->
-        <div class="projects-section">
-          <h2>项目列表</h2>
-          <div class="projects-table-container">
-            <table class="projects-table">
-              <thead>
-              <tr>
-                <th>项目名称</th>
-                <th>负责人</th>
-                <th>开始日期</th>
-                <th>截止日期</th>
-                <th>状态</th>
-                <th>进度</th>
-                <th>操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="project in projects" :key="project.id">
-                <td>{{ project.name }}</td>
-                <td>{{ project.manager }}</td>
-                <td>{{ project.startDate }}</td>
-                <td>{{ project.endDate }}</td>
-                <td>
-                    <span :class="['status-badge', project.statusClass]">
-                      {{ project.status }}
-                    </span>
-                </td>
-                <td>
-                  <div class="progress-bar">
-                    <div class="progress-fill" :style="{ width: project.progress + '%' }"></div>
-                  </div>
-                  <span class="progress-text">{{ project.progress }}%</span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary" @click="viewProject(project)">查看</button>
-                  <button class="btn btn-sm btn-outline-secondary" @click="editProject(project)">编辑</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <!-- 使用 ProjectsList 组件展示项目列表 -->
+        <ProjectsList
+            :projects="projects"
+            @viewProject="viewProject"
+            @editProject="editProject"
+        />
 
         <!-- 创建项目模态框 -->
         <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
@@ -128,28 +75,27 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import AppHeader from "@/components/layout/AppHeader.vue"
 import AppFooter from "@/components/layout/AppFooter.vue"
 import SidebarNavigation from "@/components/layout/SidebarNavigation.vue"
 import MobileNavigation from "@/components/layout/MobileNavigation.vue"
+import ProjectsList from "@/components/projects/ProjectsList.vue"
+import StatsCards from "@/components/common/StatsCards.vue" // 引入新的统计卡片组件
 
 export default {
-  name: 'ProjectManagement',
+  name: 'Projects',
   components: {
     AppHeader,
     AppFooter,
     SidebarNavigation,
-    MobileNavigation
+    MobileNavigation,
+    ProjectsList,
+    StatsCards
   },
   setup() {
-    // 移动端状态
-    const isMobile = ref(false)
-
-    // 模态框状态
     const showCreateModal = ref(false)
 
-    // 新项目数据
     const newProject = ref({
       name: '',
       manager: '',
@@ -158,7 +104,6 @@ export default {
       description: ''
     })
 
-    // 项目数据
     const projects = ref([
       {
         id: 1,
@@ -362,29 +307,25 @@ export default {
       }
     ])
 
-    // 响应式处理
-    const checkScreenSize = () => {
-      isMobile.value = window.innerWidth < 768
-    }
+    // 项目统计信息，现在作为独立的数据对象
+    const projectStats = ref([
+      { value: 24, label: '进行中项目', color: '#0d6efd' },
+      { value: 18, label: '已完成项目', color: '#198754' },
+      { value: 6,  label: '待启动项目', color: '#ffc107' },
+      { value: 3,  label: '延期项目',   color: '#dc3545' }
+    ])
 
-    // 查看项目详情
     const viewProject = (project) => {
       console.log('查看项目:', project)
-      // 这里可以跳转到项目详情页面
     }
 
-    // 编辑项目
     const editProject = (project) => {
       console.log('编辑项目:', project)
-      // 这里可以打开编辑模态框
     }
 
-    // 创建项目
     const createProject = () => {
       console.log('创建项目:', newProject.value)
-      // 这里可以调用API创建项目
       showCreateModal.value = false
-      // 重置表单
       newProject.value = {
         name: '',
         manager: '',
@@ -394,20 +335,11 @@ export default {
       }
     }
 
-    onMounted(() => {
-      checkScreenSize()
-      window.addEventListener('resize', checkScreenSize)
-    })
-
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', checkScreenSize)
-    })
-
     return {
-      isMobile,
       showCreateModal,
       newProject,
       projects,
+      projectStats,
       viewProject,
       editProject,
       createProject
@@ -537,122 +469,6 @@ body {
   border-radius: 0.2rem;
 }
 
-/* 统计卡片 */
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.stat-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #0d6efd;
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-/* 项目列表 */
-.projects-section h2 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #212529;
-}
-
-.projects-table-container {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.projects-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.projects-table th,
-.projects-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.projects-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #495057;
-}
-
-.projects-table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* 状态标签 */
-.status-badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.status-in-progress {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.status-completed {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-pending {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.status-delayed {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* 进度条 */
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background-color: #e9ecef;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #0d6efd;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.progress-text {
-  font-size: 0.8rem;
-  color: #6c757d;
-}
-
 /* 模态框 */
 .modal-overlay {
   position: fixed;
@@ -760,32 +576,8 @@ body {
     gap: 15px;
   }
 
-  .stats-cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .projects-table {
-    font-size: 0.8rem;
-  }
-
-  .projects-table th,
-  .projects-table td {
-    padding: 8px 10px;
-  }
-
   .modal-content {
     margin: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .projects-table {
-    display: block;
-    overflow-x: auto;
   }
 }
 </style>

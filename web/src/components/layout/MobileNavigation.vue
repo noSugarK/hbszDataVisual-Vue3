@@ -1,6 +1,6 @@
 <!-- src/components/layout/MobileNavigation.vue -->
 <template>
-  <div class="mobile-filters">
+  <div class="mobile-filters" v-if="isMobile">
     <div class="tech-filters">
       <router-link to="/projects" class="filter-btn" active-class="active" exact>项目</router-link>
       <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
@@ -10,15 +10,36 @@
 </template>
 
 <script>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
 export default {
-  name: 'MobileNavigation'
+  name: 'MobileNavigation',
+  setup() {
+    const isMobile = ref(false)
+
+    const checkScreenSize = () => {
+      isMobile.value = window.innerWidth < 768
+    }
+
+    onMounted(() => {
+      checkScreenSize()
+      window.addEventListener('resize', checkScreenSize)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', checkScreenSize)
+    })
+
+    return {
+      isMobile
+    }
+  }
 }
 </script>
 
 <style scoped>
 /* 移动端二级导航 */
 .mobile-filters {
-  display: none;
   background-color: white;
   border-radius: 8px;
   padding: 15px 20px;
@@ -61,17 +82,6 @@ export default {
   background-color: #f0f2f5;
   color: #1a73e8;
   font-weight: 500;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .mobile-filters {
-    display: block;
-  }
-
-  .mobile-filters {
-    margin: 0 -15px 20px -15px;
-  }
 }
 
 /* 深色模式支持 */
