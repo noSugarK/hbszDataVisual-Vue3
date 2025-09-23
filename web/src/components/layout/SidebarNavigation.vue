@@ -2,9 +2,8 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h3>前端技术</h3>
-      <p>探索前端开发的最新趋势和最佳实践</p>
-      <button class="follow-btn">关注</button>
+      <h3>数据管理</h3>
+      <p>管理界面，下方为管理界面导航</p>
     </div>
 
     <!-- 二级导航 - 技术栈过滤（改为路由导航） -->
@@ -17,9 +16,9 @@
       </div>
     </div>
 
-    <!-- 热门标签 -->
+    <!-- 近期项目 -->
     <div class="tags-section">
-      <h4>热门标签</h4>
+      <h4>近期项目</h4>
       <div class="tags-container">
         <span v-for="tag in hotTags" :key="tag" class="tag">#{{ tag }}</span>
       </div>
@@ -33,8 +32,8 @@ import { ref } from 'vue'
 export default {
   name: 'SidebarNavigation',
   setup() {
-    // 热门标签
-    const hotTags = ref(['Webpack', 'Vite', 'Next.js', 'CSS3', '性能优化'])
+    // 近期项目
+    const hotTags = ref(['项目1', '项目2', '项目3', '项目4', '项目5'])
 
     return {
       hotTags
@@ -141,7 +140,7 @@ export default {
   font-weight: 500;
 }
 
-/* 热门标签 */
+/* 近期项目 */
 .tags-section h4 {
   font-size: 0.95rem;
   font-weight: 600;
