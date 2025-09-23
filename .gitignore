@@ -64,4 +64,4 @@ ___pycache__/
 *.pyd
 
 # projects
-backend/apps/account/key/*.pem
+*.pem
