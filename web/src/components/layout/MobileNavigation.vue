@@ -1,10 +1,9 @@
-<!-- src/components/layout/MobileNavigation.vue -->
 <template>
   <div class="mobile-filters" v-if="isMobile">
-    <div class="tech-filters">
-      <router-link to="/projects" class="filter-btn" active-class="active" exact>项目</router-link>
-      <router-link to="/orders" class="filter-btn" active-class="active">订单</router-link>
-      <router-link to="/region" class="filter-btn" active-class="active">区域</router-link>
+    <div class="d-flex overflow-auto gap-2 pb-2">
+      <router-link to="/projects" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active" exact>项目</router-link>
+      <router-link to="/orders" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">订单</router-link>
+      <router-link to="/region" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">区域</router-link>
     </div>
   </div>
 </template>
@@ -45,64 +44,60 @@ export default {
   padding: 15px 20px;
   margin-bottom: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: 0 -20px 20px -20px;
+  margin: 0 0 20px 0;
+  width: 100%;
 }
 
-.mobile-filters .tech-filters {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 5px;
-  white-space: nowrap;
-  gap: 5px;
+
+/* 移动端导航按钮 */
+.mobile-nav-btn {
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease-in-out;
 }
 
-.mobile-filters .filter-btn {
-  flex-shrink: 0;
-  background-color: transparent;
-  color: #5f6368;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
+.mobile-nav-btn:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+  border-color: #0d6efd;
 }
 
-.mobile-filters .filter-btn:hover {
-  background-color: #f0f2f5;
-  color: #1a73e8;
+.mobile-nav-btn-active {
+  background-color: #0d6efd;
+  color: white !important;
+  border-color: #0d6efd;
 }
 
-.mobile-filters .filter-btn.active {
-  background-color: #f0f2f5;
-  color: #1a73e8;
-  font-weight: 500;
+.mobile-nav-btn-active:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
 }
 
 /* 深色模式支持 */
 @media (prefers-color-scheme: dark) {
   .mobile-filters {
-    background-color: #1f1f1f;
+    background-color: #2d3748;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
-  .mobile-filters .filter-btn {
-    background-color: #333;
-    color: #e0e0e0;
+  .mobile-nav-btn {
+    background-color: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
   }
 
-  .mobile-filters .filter-btn:hover {
-    background-color: #444;
+  .mobile-nav-btn:hover {
+    background-color: #718096;
+    color: #63b3ed;
+    border-color: #63b3ed;
   }
 
-  .mobile-filters .filter-btn.active {
-    background-color: #2a2a2a;
-    color: #9acafa;
+  .mobile-nav-btn-active {
+    background-color: #3182ce;
+    border-color: #3182ce;
   }
 }
 </style>

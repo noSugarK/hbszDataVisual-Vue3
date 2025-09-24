@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.account',
     'apps.users',
     'apps.region',
+    'apps.projects',
 ]
 
 REST_FRAMEWORK = {
