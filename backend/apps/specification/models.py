@@ -13,3 +13,4 @@ class Specification(models.Model):
     class Meta:
         verbose_name = "规格"
         verbose_name_plural = "规格"
+        db_table = 'specification'

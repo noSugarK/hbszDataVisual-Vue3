@@ -26,3 +26,4 @@ class Order(models.Model):
     class Meta:
         verbose_name = "订单"
         verbose_name_plural = "订单"
+        db_table = 'orders'

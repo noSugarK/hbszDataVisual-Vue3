@@ -9,3 +9,4 @@ class Category(models.Model):
     class Meta:
         verbose_name = "物资类别"
         verbose_name_plural = "物资类别"
+        db_table = 'category'

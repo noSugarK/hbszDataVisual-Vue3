@@ -9,3 +9,4 @@ class Supplier(models.Model):
     class Meta:
         verbose_name = "供应商"
         verbose_name_plural = "供应商"
+        db_table = 'supplier'

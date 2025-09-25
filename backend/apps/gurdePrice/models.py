@@ -18,3 +18,4 @@ class GuidePrice(models.Model):
     class Meta:
         verbose_name = "指导价"
         verbose_name_plural = "指导价"
+        db_table = 'guide_price'
