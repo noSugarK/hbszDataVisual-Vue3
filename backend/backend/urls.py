@@ -24,4 +24,5 @@ urlpatterns = [
     # path('v1/projects/', include('apps.projects.urls')),
     # path('v1/category/', include('apps.category.urls')),
     path('v1/region/', include('apps.region.urls')),
+    path('v1/brand/', include('apps.brand.urls')),
 ]

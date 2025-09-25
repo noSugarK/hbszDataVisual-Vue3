@@ -11,6 +11,8 @@ declare module 'vue' {
     AccountFooter: typeof import('./src/components/layout/AccountFooter.vue')['default']
     AppFooter: typeof import('./src/components/layout/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/layout/AppHeader.vue')['default']
+    BrandForm: typeof import('./src/components/brand/BrandForm.vue')['default']
+    BrandList: typeof import('./src/components/brand/BrandList.vue')['default']
     Carousel: typeof import('./src/components/home/Carousel.vue')['default']
     DeleteConfirm: typeof import('./src/components/common/DeleteConfirm.vue')['default']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']

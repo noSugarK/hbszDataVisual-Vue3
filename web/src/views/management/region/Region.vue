@@ -151,13 +151,6 @@ export default {
 </script>
 
 <style scoped>
-/* 保持原有样式不变 */
-.region-management-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .main-content {
   max-width: 1500px;
   margin: 0 auto;
