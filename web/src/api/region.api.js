@@ -1,6 +1,6 @@
 import api from './api'
 
-class RegionService {
+class RegionApi {
   // 获取区域列表
   async getRegions(params = {}) {
     const response = await api.get('/region/', { params })
@@ -44,4 +44,4 @@ class RegionService {
 
 }
 
-export default new RegionService()
+export default new RegionApi()

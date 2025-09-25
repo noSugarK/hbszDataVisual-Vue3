@@ -17,7 +17,7 @@ src/
 │   ├── api.js
 │   ├── auth.service.js
 │   ├── project.service.js
-│   ├── user.service.js
+│   ├── user.api.js
 │   └── visualization.service.js
 ├── stores/                 # 状态管理
 │   ├── account.js

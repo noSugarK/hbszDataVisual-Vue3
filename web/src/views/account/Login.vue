@@ -80,7 +80,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAccountStore } from '@/stores/account.js'
 import { JSEncrypt } from 'encryptlong'
-import AccountService from '@/services/account.services.js'
+import AccountService from '@/api/account.api.js'
 import LogoHeader from "@/components/common/LogoHeader.vue";
 import AccountFooter from "@/components/layout/AccountFooter.vue";
 

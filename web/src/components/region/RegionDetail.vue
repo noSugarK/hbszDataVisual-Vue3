@@ -48,7 +48,7 @@
 
 <script>
 import { ref, watch } from 'vue'
-import RegionService from '@/services/region.service.js'
+import RegionService from '@/api/region.api.js'
 
 export default {
   name: 'RegionDetail',

@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import RegionService from '@/services/region.service';
+import RegionService from '@/api/region.api.js';
 import RegionForm from '@/components/region/RegionForm.vue'
 import RegionDetail from '@/components/region/RegionDetail.vue'
 

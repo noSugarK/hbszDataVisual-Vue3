@@ -60,7 +60,7 @@
 
 <script>
 import { ref, watch, onMounted } from 'vue'
-import RegionService from '@/services/region.service'
+import RegionService from '@/api/region.api.js'
 
 export default {
   name: 'RegionForm',

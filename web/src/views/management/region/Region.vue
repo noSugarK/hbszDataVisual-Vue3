@@ -46,7 +46,7 @@ import MobileNavigation from "@/components/layout/MobileNavigation.vue"
 import StatsCards from "@/components/common/StatsCards.vue"
 import RegionList from "@/components/region/RegionList.vue"
 import DeleteConfirm from '@/components/common/DeleteConfirm.vue'
-import RegionService from '@/services/region.service'
+import RegionService from '@/api/region.api.js'
 import RegionForm from '@/components/region/RegionForm.vue'
 
 export default {

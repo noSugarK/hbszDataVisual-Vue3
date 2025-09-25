@@ -6,8 +6,11 @@ import accountRoutes from './account.routes.js'
 import mainRoutes from './main.routes.js'
 import userRoutes from './user.routes.js'
 import projectsRoutes from "@/router/projects.routes.js";
-import regionRoutes from "@/router/region.routes.js";
+import regionRoutes from "@/router/management/region.routes.js";
 import ordersRoutes from "@/router/orders.routes.js";
+import brandRoutes from "@/router/management/brand.routes.js";
+import categoryRoutes from "@/router/management/category.routes.js";
+import supplierRoutes from "@/router/management/supplier.routes.js";
 
 // 合并所有路由
 const routes = [
@@ -17,6 +20,9 @@ const routes = [
   ...projectsRoutes,
   ...regionRoutes,
   ...ordersRoutes,
+  ...brandRoutes,
+  ...categoryRoutes,
+  ...supplierRoutes,
   // 404 页面
   {
     path: '/:pathMatch(.*)*',

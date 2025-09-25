@@ -96,7 +96,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import AccountService from '@/services/account.services.js'
+import AccountService from '@/api/account.api.js'
 import LogoHeader from "@/components/common/LogoHeader.vue";
 import AccountFooter from "@/components/layout/AccountFooter.vue";
 

@@ -1,6 +1,6 @@
 import api from './api'
 
-class AccountService {
+class AccountApi {
   // 用户登录
   async login(username, password, remember_me = false) {
     const response = await api.post('/account/login/', {
@@ -84,4 +84,4 @@ class AccountService {
   }
 }
 
-export default new AccountService()
+export default new AccountApi()
