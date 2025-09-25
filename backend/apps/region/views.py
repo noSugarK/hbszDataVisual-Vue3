@@ -1,12 +1,11 @@
-# file:E:\HBSZ\hbszDataVisual-Vue3\backend\apps\region\views.py
+#file:E:\HBSZ\hbszDataVisual-Vue3\backend\apps\region\views.py
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Region
-from .serializers import RegionSerializer, RegionTreeSerializer
-from apps.projects.models import Project  # 导入Project模型
-
+from .serializers import RegionSerializer, RegionTreeSerializer, RegionDetailSerializer
+from apps.projects.models import Project
 
 class RegionListCreateView(generics.ListCreateAPIView):
     queryset = Region.objects.all()
@@ -28,11 +27,9 @@ class RegionListCreateView(generics.ListCreateAPIView):
 
         return queryset
 
-
 class RegionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Region.objects.all()
-    serializer_class = RegionSerializer
-
+    serializer_class = RegionDetailSerializer
 
 @api_view(['GET'])
 def region_tree(request):
@@ -44,7 +41,6 @@ def region_tree(request):
     for item in serializer.data:
         result.append(transform_region_data(item))
     return Response(result)
-
 
 @api_view(['GET'])
 def region_stats(request):
@@ -69,7 +65,6 @@ def region_stats(request):
     }
 
     return Response(data)
-
 
 def transform_region_data(region_data):
     transformed = {

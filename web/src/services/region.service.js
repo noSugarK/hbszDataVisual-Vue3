@@ -1,4 +1,3 @@
-// src/services/region.service.js
 import api from './api'
 
 class RegionService {
@@ -7,8 +6,6 @@ class RegionService {
     const response = await api.get('/region/', { params })
     return response.data
   }
-
-
 
   // 获取单个区域详情
   async getRegion(id) {
