@@ -1,5 +1,5 @@
 <template>
-  <div class="region-management p-4">
+  <div class="region-management">
     <h2 class="fs-4 fw-bold mb-4 text-primary">区域列表</h2>
 
     <!-- 加载状态 -->
@@ -213,23 +213,5 @@ export default {
 .region-table {
   width: 100%;
   min-width: 500px;
-}
-
-@media (min-width: 1200px) {
-  .region-table {
-    min-width: 800px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .region-table {
-    min-width: 1000px;
-  }
-}
-
-@media (max-width: 768px) {
-  .region-table {
-    min-width: unset;
-  }
 }
 </style>
