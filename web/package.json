@@ -30,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
     "@vitejs/plugin-vue": "^6.0.1",
+    "@volar/vue-language-server": "^1.6.5",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
