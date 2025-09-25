@@ -21,7 +21,7 @@ declare module 'vue' {
     HomeHero: typeof import('./src/components/home/HomeHero.vue')['default']
     LogoHeader: typeof import('./src/components/common/LogoHeader.vue')['default']
     MobileNavigation: typeof import('./src/components/layout/MobileNavigation.vue')['default']
-    OrdersList: typeof import('./src/components/Orders/OrdersList.vue')['default']
+    OrdersList: typeof import('./src/components/orders/OrdersList.vue')['default']
     ProjectsList: typeof import('./src/components/projects/ProjectsList.vue')['default']
     RegionDetail: typeof import('./src/components/region/RegionDetail.vue')['default']
     RegionForm: typeof import('./src/components/region/RegionForm.vue')['default']
