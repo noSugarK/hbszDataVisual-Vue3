@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'apps.brand',
     'apps.category',
     'apps.supplier',
+    'apps.orders',
 ]
 
 REST_FRAMEWORK = {
