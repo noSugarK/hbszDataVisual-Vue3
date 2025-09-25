@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'apps.category',
     'apps.supplier',
     'apps.orders',
+    'apps.gurdePrice',
 ]
 
 REST_FRAMEWORK = {
