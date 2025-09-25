@@ -174,7 +174,7 @@ export default {
 }
 
 @media (max-width: 1024px) {
-  .main-content { flex-direction: column; }
+  .main-content { flex-direction: row; }
   .content-area { width: 100%; }
 }
 

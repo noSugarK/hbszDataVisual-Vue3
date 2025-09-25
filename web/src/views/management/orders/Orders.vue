@@ -14,9 +14,11 @@
         <MobileNavigation />
 
         <!-- 页面标题 -->
-        <div class="page-header">
-          <h1>订单管理</h1>
-          <button class="btn btn-primary" @click="showCreateModal = true">创建订单</button>
+        <div class="page-header d-flex justify-content-between align-items-center mb-4">
+          <h1 class="h3 mb-0">订单管理</h1>
+          <button class="btn btn-primary" @click="showCreateForm">
+            <i class="bi bi-plus-circle me-1"></i>添加订单
+          </button>
         </div>
 
         <!-- 使用 StatsCards 组件展示统计信息 -->
@@ -176,28 +178,6 @@ export default {
 </script>
 
 <style scoped>
-/* 基础样式重置 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f8f9fa;
-}
-
-/* 全局容器 */
-.orders-management-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 主要内容区域 */
 .main-content {
   max-width: 1500px;
   margin: 0 auto;
@@ -205,206 +185,21 @@ body {
   display: flex;
   flex: 1;
   gap: 20px;
-  align-items: flex-start;
 }
 
-/* 内容区 */
 .content-area {
   flex: 1;
+  transition: filter 0.3s ease;
+  position: relative;
 }
 
-/* 页面标题 */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.page-header h1 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #212529;
-}
-
-/* 按钮样式 */
-.btn {
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  cursor: pointer;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.btn-primary:hover {
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
-}
-
-.btn-secondary {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-  background-color: #5c636a;
-  border-color: #565e64;
-}
-
-.btn-outline-primary {
-  color: #0d6efd;
-  background-color: transparent;
-  border-color: #0d6efd;
-}
-
-.btn-outline-primary:hover {
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.btn-outline-secondary {
-  color: #6c757d;
-  background-color: transparent;
-  border-color: #6c757d;
-}
-
-.btn-outline-secondary:hover {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  border-radius: 0.2rem;
-}
-
-/* 模态框 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #6c757d;
-}
-
-.close-btn:hover {
-  color: #000;
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #495057;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #86b7fe;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* 响应式设计 */
 @media (max-width: 1024px) {
-  .main-content {
-    flex-direction: row;
-  }
-
-  .content-area {
-    width: calc(100% - 270px);
-    min-width: 0;
-  }
+  .main-content { flex-direction: row; }
+  .content-area { width: 100%; }
 }
 
 @media (max-width: 768px) {
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .modal-content {
-    margin: 10px;
-  }
+  .main-content { padding: 15px; gap: 15px; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 15px; }
 }
 </style>
