@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('v1/account/', include('apps.account.urls')),
-    path('v1/users/', include('apps.users.urls')),
+    path('api/admin/', admin.site.urls),
+    path('api/v1/account/', include('apps.account.urls')),
+    path('api/v1/users/', include('apps.users.urls')),
     # path('v1/projects/', include('apps.projects.urls')),
     # path('v1/category/', include('apps.category.urls')),
-    path('v1/region/', include('apps.region.urls')),
-    path('v1/brand/', include('apps.brand.urls')),
+    path('api/v1/region/', include('apps.region.urls')),
+    path('api/v1/brand/', include('apps.brand.urls')),
 ]

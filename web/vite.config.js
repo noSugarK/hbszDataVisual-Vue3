@@ -28,7 +28,7 @@ export default defineConfig({
     // 添加服务器配置和代理
     server: {
         // 开发服务器端口
-        port: 5173,
+        port: 8080,
         // 启动时自动打开浏览器
         open: true,
         // 配置代理解决跨域问题
@@ -38,7 +38,7 @@ export default defineConfig({
                 target: 'http://localhost:8000', // Django后端地址
                 changeOrigin: true,
                 // 重写路径，去掉 /api 前缀（如果需要的话）
-                rewrite: (path) => path.replace(/^\/api/, '')
+                rewrite: (path) => path.replace(/^\/api/, '/api')
             }
         }
     }
