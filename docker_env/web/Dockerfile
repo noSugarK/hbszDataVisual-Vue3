@@ -1,4 +1,4 @@
-FROM node:16-buster-slim as frontend-builder
+FROM node:22-buster-slim as frontend-builder
 WORKDIR /web/
 COPY web/. .
 RUN npm install -g pnpm && \
