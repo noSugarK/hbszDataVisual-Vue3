@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,12 +25,13 @@ SECRET_KEY = 'django-insecure-yt@h$t+k9bfg8*&_e3&m5(vi!-8ukyl!5y&=!)r!zr!r#i)(!y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8.148.253.79','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['8.148.253.79','localhost','127.0.0.1','172.27.105.3']
 
 # CORS设置
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://8.148.253.79:8080"
 ]
 
 # Application definition
@@ -129,11 +129,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DATABASE_NAME', 'hbsz-vue3'),
-        'USER': os.environ.get('DATABASE_USER', 'hbsz'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'qwer1234'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', '3306'),
+        'NAME': 'hbsz-vue3',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': '172.27.105.3',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
