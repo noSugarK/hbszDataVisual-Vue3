@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-yt@h$t+k9bfg8*&_e3&m5(vi!-8ukyl!5y&=!)r!zr!r#i)(!y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8.148.253.79','localhost','127.0.0.1']
 
 # CORS设置
 CORS_ALLOWED_ORIGINS = [
@@ -126,17 +127,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        'NAME': 'hbsz-vue3',             # 替换为你的数据库名称
-        'USER': 'root',             # 替换为你的数据库用户名
-        'PASSWORD': '123456',       # 替换为你的数据库密码
-        'HOST': 'localhost',        # 数据库服务器地址，通常是 localhost
-        'PORT': '3306',
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DATABASE_NAME', 'hbsz-vue3'),
+        'USER': os.environ.get('DATABASE_USER', 'hbsz'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'qwer1234'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', '3306'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        }
     }
 }
-
-# myproject/settings.py
 
 # 邮件配置 - 使用 QQ 邮箱 SMTP
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
