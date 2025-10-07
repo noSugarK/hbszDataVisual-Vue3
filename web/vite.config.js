@@ -38,7 +38,7 @@ export default defineConfig({
                 target: 'http://localhost:8000', // Django后端地址
                 changeOrigin: true,
                 // 重写路径，去掉 /api 前缀（如果需要的话）
-                rewrite: (path) => path.replace(/^\/api/, '/api')
+                rewrite: (path) => path.replace(/^\/api/, '')
             }
         }
     }
