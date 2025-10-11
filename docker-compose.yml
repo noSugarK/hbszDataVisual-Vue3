@@ -24,7 +24,7 @@ services:
       - DATABASE_PASSWORD=123456
 
   web-hbsz:
-    container_name: web
+    container_name: web-hbsz
     ports:
       - "80:80"
     build:
