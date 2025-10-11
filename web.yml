@@ -1,9 +1,9 @@
 version: "3"
 services:
-  web:
-    container_name: web
+  web-hbsz:
+    container_name: web-hbsz
     ports:
-      - "8080:8080"
+      - "80:80"
     build:
       context: ./
       dockerfile: ./docker_env/web/Dockerfile

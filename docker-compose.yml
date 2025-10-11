@@ -1,17 +1,17 @@
 version: "3"
 services:
-  django:
+  django-hbsz:
     build:
       context: .
       dockerfile: ./docker_env/django/Dockerfile
       args:
         - COMPOSE_DOCKER_CLI_BUILD=1  # 设置串行构建
-    container_name: django
+    container_name: django-hbsz
     working_dir: /backend
     ports:
-      - "8000:8000"
+      - "8080:8080"
     expose:
-      - "8000"
+      - "8080"
     restart: always
     volumes:
       - ./backend:/backend
@@ -23,10 +23,10 @@ services:
       - DATABASE_USER=root
       - DATABASE_PASSWORD=123456
 
-  web:
+  web-hbsz:
     container_name: web
     ports:
-      - "8080:8080"
+      - "80:80"
     build:
       context: ./
       dockerfile: ./docker_env/web/Dockerfile
