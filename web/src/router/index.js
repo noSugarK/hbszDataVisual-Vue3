@@ -11,6 +11,7 @@ import ordersRoutes from "@/router/orders.routes.js";
 import brandRoutes from "@/router/management/brand.routes.js";
 import categoryRoutes from "@/router/management/category.routes.js";
 import supplierRoutes from "@/router/management/supplier.routes.js";
+import guidePriceRoutes from "@/router/management/guidePrice.routes.js";
 
 // 合并所有路由
 const routes = [
@@ -23,6 +24,7 @@ const routes = [
   ...brandRoutes,
   ...categoryRoutes,
   ...supplierRoutes,
+  ...guidePriceRoutes,
   // 404 页面
   {
     path: '/:pathMatch(.*)*',

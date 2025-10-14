@@ -4,6 +4,9 @@
       <router-link to="/projects" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active" exact>项目</router-link>
       <router-link to="/orders" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">订单</router-link>
       <router-link to="/region" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">区域</router-link>
+      <router-link to="/category" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">物资类别</router-link>
+      <router-link to="/supplier" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">供应商</router-link>
+      <router-link to="/guide-price" class="btn mobile-nav-btn flex-shrink-0" active-class="mobile-nav-btn-active">指导价</router-link>
     </div>
   </div>
 </template>

@@ -16,8 +16,9 @@
           <router-link to="/orders" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">订单</router-link>
           <router-link to="/region" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">区域</router-link>
           <router-link to="/brand" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">品牌</router-link>
-          <router-link to="/category" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">物资</router-link>
+          <router-link to="/category" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">物资类别</router-link>
           <router-link to="/supplier" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">供应商</router-link>
+          <router-link to="/guide-price" class="btn sidebar-nav-btn" active-class="sidebar-nav-btn-active">指导价</router-link>
         </div>
       </div>
     </div>

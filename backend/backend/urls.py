@@ -22,7 +22,9 @@ urlpatterns = [
     path('v1/account/', include('apps.account.urls')),
     path('v1/users/', include('apps.users.urls')),
     # path('v1/projects/', include('apps.projects.urls')),
-    # path('v1/category/', include('apps.category.urls')),
+    path('v1/category/', include('apps.category.urls')),
     path('v1/region/', include('apps.region.urls')),
     path('v1/brand/', include('apps.brand.urls')),
+    path('v1/supplier/', include('apps.supplier.urls')),
+    path('v1/guide-price/', include('apps.gurdePrice.urls')),
 ]

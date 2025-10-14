@@ -17,6 +17,7 @@
     "axios": "^1.11.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.5.1",
     "crypto-js": "^4.2.0",
     "element-plus": "^2.10.7",
     "encryptlong": "^3.1.4",
