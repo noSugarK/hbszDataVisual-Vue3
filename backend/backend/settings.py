@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.region',
     'apps.projects',
-    'apps.specification',
     'apps.brand',
     'apps.category',
     'apps.supplier',

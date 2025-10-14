@@ -1,13 +1,12 @@
 from rest_framework import serializers
 from .models import GuidePrice
-from apps.category.models import Category
-from apps.specification.models import Specification
+from apps.category.models import Category,CategorySpecification
 from apps.region.models import Region
 
 
 class GuidePriceSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.category_name', read_only=True)
-    specification_name = serializers.CharField(source='specification.specification_name', read_only=True)
+    CategorySpecification_name = serializers.CharField(source='CategorySpecification.CategorySpecification_name', read_only=True)
     region_name = serializers.CharField(source='region.name', read_only=True)
     user_name = serializers.CharField(source='user.username', read_only=True)
 
@@ -18,18 +17,18 @@ class GuidePriceSerializer(serializers.ModelSerializer):
 
 class GuidePriceListSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.category_name', read_only=True)
-    specification_name = serializers.CharField(source='specification.specification_name', read_only=True)
+    CategorySpecification_name = serializers.CharField(source='CategorySpecification.CategorySpecification_name', read_only=True)
     region_name = serializers.CharField(source='region.name', read_only=True)
 
     class Meta:
         model = GuidePrice
-        fields = ['id', 'date', 'category_name', 'specification_name', 'region_name', 'unit_price']
+        fields = ['id', 'date', 'category_name', 'CategorySpecification_name', 'region_name', 'unit_price']
 
 
 class GuidePriceCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuidePrice
-        fields = ['date', 'region', 'specification', 'category', 'unit_price']
+        fields = ['date', 'region', 'CategorySpecification', 'category', 'unit_price']
 
 
 class GuidePriceStatsSerializer(serializers.Serializer):

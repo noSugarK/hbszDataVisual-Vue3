@@ -93,7 +93,7 @@ export default {
       { value: 25, label: '总类别数', color: '#0d6efd' },
       { value: 3, label: '本月新增', color: '#198754' },
       { value: 20, label: '活跃类别', color: '#ffc107' },
-      { value: '2023-11-15', label: '最近更新', color: '#6c757d' }
+      { value: 15, label: '最近更新天数', color: '#6c757d' }
     ])
     
     const searchQuery = ref('')
@@ -115,7 +115,7 @@ export default {
           { value: 25, label: '总类别数', color: '#0d6efd' },
           { value: 3, label: '本月新增', color: '#198754' },
           { value: 20, label: '活跃类别', color: '#ffc107' },
-          { value: '2023-11-15', label: '最近更新', color: '#6c757d' }
+          { value: 15, label: '最近更新天数', color: '#6c757d' }
         ]
       } catch (error) {
         console.error('加载统计数据失败:', error)
@@ -133,6 +133,12 @@ export default {
       currentCategoryId.value = null
       formData.value = {
         category_name: ''
+      }
+      if (!modalInstance) {
+        const modalElement = document.getElementById('categoryModal')
+        if (modalElement) {
+          modalInstance = new Modal(modalElement)
+        }
       }
       modalInstance.show()
     }
@@ -166,7 +172,13 @@ export default {
     
     onMounted(() => {
       loadStats()
-      modalInstance = new Modal(categoryModal.value)
+      // 延迟初始化模态框，确保DOM已完全渲染
+      setTimeout(() => {
+        const modalElement = document.getElementById('categoryModal')
+        if (modalElement) {
+          modalInstance = new Modal(modalElement)
+        }
+      }, 100)
     })
     
     return {
